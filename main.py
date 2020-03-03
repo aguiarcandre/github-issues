@@ -58,9 +58,6 @@ if __name__ == '__main__':
   # Initialize firestore database and get last_issue
   last_issue = db.collection('last-issue').document('0').get().to_dict()
 
-  # List of terms to ignore when looking for new issues
-  terms_to_ignore = ['image', 'layer']
-
   issues = get_gh_issues()
   if issues is not None:
     result = process_issues(issues)
