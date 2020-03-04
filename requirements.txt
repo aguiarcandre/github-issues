@@ -1,7 +1,11 @@
+appdirs==1.4.3
+attrs==19.3.0
+black==19.10b0
 cachetools==4.0.0
 certifi==2019.11.28
 cffi==1.14.0
 chardet==3.0.4
+Click==7.0
 cryptography==2.8
 decorator==4.4.2
 Deprecated==1.2.7
@@ -13,6 +17,7 @@ google-cloud-firestore==1.6.2
 googleapis-common-protos==1.51.0
 grpcio==1.27.2
 idna==2.9
+pathspec==0.7.0
 protobuf==3.11.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
@@ -21,9 +26,12 @@ PyGithub==1.46
 PyJWT==1.7.1
 python-telegram-bot==12.4.2
 pytz==2019.3
+regex==2020.2.20
 requests==2.23.0
 rsa==4.0
 six==1.14.0
+toml==0.10.0
 tornado==6.0.3
+typed-ast==1.4.1
 urllib3==1.25.8
 wrapt==1.12.0
