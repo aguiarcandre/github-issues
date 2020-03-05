@@ -12,7 +12,7 @@ app = Flask(__name__)
 g = Github(os.environ["GH_TOKEN"])
 bot = telegram.Bot(os.environ["TELEGRAM_TOKEN"])
 
-firestore_sa_key = eval(str(os.environ["SA_KEY"]))
+firestore_sa_key = eval(str(os.environ["FIRESTORE_KEY"]))
 firestore_credentials = service_account.Credentials.from_service_account_info(firestore_sa_key)
 db = firestore.Client(credentials=firestore_credentials)
 
