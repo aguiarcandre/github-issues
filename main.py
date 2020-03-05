@@ -19,7 +19,7 @@ def get_gh_issues(g, last_issue):
     """Call GitHub API and fetch new issues based on user criterias"""
     try:
         # Search query to GitHub
-        search_query = f'label:"good first issue" -label:"question" language:python is:open no:assignee \
+        search_query = f'label:"help wanted" -label:"question" language:python is:open no:assignee \
                       created:>={last_issue["created_at"]} -linked:pr'
 
         # Call Github API
