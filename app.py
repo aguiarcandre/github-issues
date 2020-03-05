@@ -3,7 +3,6 @@ from github import Github
 from datetime import datetime
 from google.cloud import firestore
 from flask import Flask
-from google.oauth2 import service_account
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -11,10 +10,7 @@ app = Flask(__name__)
 # Auth
 g = Github(os.environ["GH_TOKEN"])
 bot = telegram.Bot(os.environ["TELEGRAM_TOKEN"])
-
-firestore_sa_key = eval(str(os.environ["FIRESTORE_KEY"]))
-firestore_credentials = service_account.Credentials.from_service_account_info(firestore_sa_key)
-db = firestore.Client(credentials=firestore_credentials)
+db = firestore.Client()
 
 
 def get_last_issue_data(db):

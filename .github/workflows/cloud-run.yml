@@ -27,7 +27,6 @@ env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
   TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
   TELEGRAM_USERID: ${{ secrets.TELEGRAM_USERID }}
-  FIRESTORE_KEY: ${{ secrets.FIRESTORE_KEY }}
 
 jobs:
   setup-build-deploy:
@@ -44,6 +43,7 @@ jobs:
           version: 'latest'
           service_account_email: ${{ secrets.SA_EMAIL }}
           service_account_key: ${{ secrets.SA_KEY }}
+          export_default_credentials: true
 
       # Configure gcloud CLI
       - name: gcloud Set up
