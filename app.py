@@ -1,4 +1,4 @@
-import os, config, telegram
+import os, telegram
 from github import Github
 from datetime import datetime
 from google.cloud import firestore
