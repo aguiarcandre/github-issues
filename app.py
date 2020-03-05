@@ -9,10 +9,10 @@ from google.oauth2 import service_account
 app = Flask(__name__)
 
 # Auth
-g = Github(config.github)
-bot = telegram.Bot(config.telegram)
+g = Github(os.environ["GH_TOKEN"])
+bot = telegram.Bot(os.environ["TELEGRAM_TOKEN"])
 
-firestore_sa_key = eval(str(config.firestore))
+firestore_sa_key = eval(str(os.environ["SA_KEY"]))
 firestore_credentials = service_account.Credentials.from_service_account_info(firestore_sa_key)
 db = firestore.Client(credentials=firestore_credentials)
 
@@ -82,7 +82,7 @@ def send_telegram_msg(bot, msg):
                 new_msg = ""
                 for key, item in iss.items():
                     new_msg += f"{key}: {item}\n"
-                bot.send_message(chat_id=config.telegram_user_id, text=new_msg)
+                bot.send_message(chat_id=os.environ["TELEGRAM_USERID"], text=new_msg)
         # If not list (error), send message to user
         else:
             bot.send_message(chat_id=config.telegram_user_id, text=msg)
