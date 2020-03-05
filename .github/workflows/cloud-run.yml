@@ -27,7 +27,7 @@ env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
   TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
   TELEGRAM_USERID: ${{ secrets.TELEGRAM_USERID }}
-  SA_KEY: ${{ SA_KEY }}
+  SA_KEY: ${{ secrets.SA_KEY }}
 
 jobs:
   setup-build-deploy:
