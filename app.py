@@ -42,7 +42,7 @@ def process_issues(issues, last_issue):
     issues_list = []
     new_last_issue = {}
     first_issue = True
-    min_repo_stars = 100
+    min_repo_stars = 0
 
     for issue in issues:
         if (
