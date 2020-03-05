@@ -24,9 +24,6 @@ env:
   PROJECT_ID: ${{ secrets.RUN_PROJECT }}
   RUN_REGION: us-central1
   SERVICE_NAME: github-issues
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
-  TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-  TELEGRAM_USERID: ${{ secrets.TELEGRAM_USERID }}
 
 jobs:
   setup-build-deploy:
@@ -59,4 +56,5 @@ jobs:
           gcloud run deploy $SERVICE_NAME \
             --region $RUN_REGION \
             --image gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
-            --platform managed
+            --platform managed \
+            --set-env-vars GH_TOKEN=${{ secrets.GH_TOKEN }},TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }},TELEGRAM_USERID=${{ secrets.TELEGRAM_USERID }}
