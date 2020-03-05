@@ -1,9 +1,18 @@
+import os, config, telegram
 from github import Github
 from datetime import datetime
 from google.cloud import firestore
+from flask import Flask
 
-import config
-import telegram
+# Initialize Flask app
+app = Flask(__name__)
+
+# Auth
+g = Github(config.github)
+db = firestore.Client().from_service_account_json(
+    "secrets/gh-issues-269718-3bc3674c82c3.json"
+)
+bot = telegram.Bot(config.telegram)
 
 
 def get_last_issue_data(db):
@@ -87,15 +96,9 @@ def save_new_last_issue(db, new_last_issue):
         raise Exception(f"Error saving new last_issue to Firestore: {e}")
 
 
+@app.route("/", methods=["GET"])
 def main():
     try:
-        # Auth
-        g = Github(config.github)
-        db = firestore.Client().from_service_account_json(
-            "secrets/gh-issues-269718-3bc3674c82c3.json"
-        )
-        bot = telegram.Bot(config.telegram)
-
         # Get last issue data
         last_issue = get_last_issue_data(db)
 
@@ -110,9 +113,12 @@ def main():
             msg_status = send_telegram_msg(bot, filtered_issues)
             # If the message was successfully sent to telegram, update last issue on firestore
             save_new_last_issue(db, new_last_issue)
+        return "Ok", 200
     except Exception as e:
         send_telegram_msg(bot, str(e))
+        return "Error"
 
 
+port = int(os.environ.get("PORT", 8080))
 if __name__ == "__main__":
-    main()
+    app.run(threaded=True, host="0.0.0.0", port=port)
