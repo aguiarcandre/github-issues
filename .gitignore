@@ -6,3 +6,4 @@ config.py
 secrets
 gh-issues-env
 .vscode
+env.sh
