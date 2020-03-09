@@ -78,10 +78,11 @@ def main():
         # If filtered issues contains new data, send to telegram
         if filtered_issues is not None:
             msg_status = tg.send_issues(filtered_issues)
-        return "Ok", 200
+        return '', 200
     except Exception as e:
         error = f"Error during 'app.main()' execution: {e}"
         tg.send_error_message(error)
+        return '', 500
 
 
 port = int(os.environ.get("PORT", 8080))
