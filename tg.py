@@ -13,7 +13,7 @@ def query_callback(update, context):
         error = f"Error during 'tg.query_callback()' execution: {e}"
         send_error_message(error)
 
-def query_tp_callback(update, context):
+def tpquery_callback(update, context):
     """Receive the new query template from user and update on firestore"""
     try:
         query = " ".join(context.args)
@@ -72,7 +72,7 @@ dispatcher = updater.dispatcher
 dispatcher.add_handler(CommandHandler("query", query_callback))
 dispatcher.add_handler(CommandHandler("stars", stars_callback))
 dispatcher.add_handler(CommandHandler("info", info_callback))
-dispatcher.add_handler(CommandHandler("query-tp", query_tp_callback))
+dispatcher.add_handler(CommandHandler("tpquery", tpquery_callback))
 
 
 # Start the Bot
