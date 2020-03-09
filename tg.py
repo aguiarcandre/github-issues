@@ -9,7 +9,8 @@ def query_callback(update, context):
         firedb.update_document("search", data)
         update.message.reply_text(f"Query sucessfully updated to: {query}")
     except Exception as e:
-        print(e)
+        error = f"Error during 'tg.query_callback()' execution: {e}"
+        send_error_message(error)
 
 def stars_callback(update, context):
     try:
@@ -18,7 +19,8 @@ def stars_callback(update, context):
         firedb.update_document("search", data)
         update.message.reply_text(f"The new min number of repo stars is: {stars}")
     except Exception as e:
-        print (e)
+        error = f"Error during 'tg.stars_callback()' execution: {e}"
+        send_error_message(error)
 
 def send_issues(msg):
     """Send isssues"""
@@ -29,14 +31,20 @@ def send_issues(msg):
                 new_msg += f"{key}: {item}\n"
             bot.send_message(chat_id=os.environ["TELEGRAM_USERID"], text=new_msg)
     except Exception as e:
-        print(e)
+        error = f"Error during 'tg.send_issues()' execution: {e}"
+        send_error_message(error)
+        
+def send_error_message(msg):
+    """Send error message"""
+    bot.send_message(chat_id=os.environ["TELEGRAM_USERID"], text=msg)
 
 def info_callback(update, context):
     try:
         info = firedb.get_document("search")
         update.message.reply_text(f"Actual parameters: {info}")
     except Exception as e:
-        print(e)
+        error = f"Error during 'tg.info_callback()' execution: {e}"
+        send_error_message(error)
 
 
 # Auth
@@ -52,8 +60,3 @@ dispatcher.add_handler(CommandHandler("info", info_callback))
 
 # Start the Bot
 updater.start_polling()
-
-# Run the bot until you press Ctrl-C or the process receives SIGINT,
-# SIGTERM or SIGABRT. This should be used most of the time, since
-# start_polling() is non-blocking and will stop the bot gracefully.
-# updater.idle()
