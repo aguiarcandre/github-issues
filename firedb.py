@@ -2,6 +2,7 @@ import os, tg
 from google.cloud import firestore
 
 def get_document(doc):
+    """Get document from Cloud Firestore"""
     try:
         doc = db.collection("parameters").document(doc).get()
         return doc.to_dict()
@@ -10,6 +11,7 @@ def get_document(doc):
         tg.send_error_message(error)
 
 def update_document(doc, data):
+    """Update document on Cloud Firestore"""
     try:
         db.collection("parameters").document(doc).update(data)
     except Exception as e:
