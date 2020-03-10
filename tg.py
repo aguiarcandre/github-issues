@@ -1,7 +1,20 @@
 import telegram, os, firedb
 from telegram.ext import Updater, CommandHandler
+from functools import wraps
 
+LIST_OF_ADMINS = [int(os.environ["TELEGRAM_USERID"])]
 
+def restricted(func):
+    @wraps(func)
+    def wrapped(update, context, *args, **kwargs):
+        user_id = update.effective_user.id
+        if user_id not in LIST_OF_ADMINS:
+            print("Unauthorized access denied for {}.".format(user_id))
+            return
+        return func(update, context, *args, **kwargs)
+    return wrapped
+
+@restricted
 def query_callback(update, context):
     """Receive the new query from user and update on firestore"""
     try:
@@ -13,6 +26,7 @@ def query_callback(update, context):
         error = f"Error during 'tg.query_callback()' execution: {e}"
         send_error_message(error)
 
+@restricted
 def tpquery_callback(update, context):
     """Receive the new query template from user and update on firestore"""
     try:
@@ -24,6 +38,7 @@ def tpquery_callback(update, context):
         error = f"Error during 'tg.query_tp_callback()' execution: {e}"
         send_error_message(error)
 
+@restricted
 def stars_callback(update, context):
     """Receive the min number of repo stars from user and update on firestore"""
     try:
@@ -51,6 +66,7 @@ def send_error_message(msg):
     """Send error message"""
     bot.send_message(chat_id=os.environ["TELEGRAM_USERID"], text=msg)
 
+@restricted
 def info_callback(update, context):
     """Return the issues search parameters to user"""
     try:
