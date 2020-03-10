@@ -19,8 +19,11 @@ This project runs on a [Docker](https://www.docker.com/) container and is hosted
 Main GCP services currently being used:
 
 > Cloud Run - To host and run the container image
+
 > Container Registry - To save the container image
+
 > Cloud Firestore - Database
+
 > Cloud Scheduler - To run the program on a defined schedule
 
 To create a Telegram Bot, follow instructions [here](https://core.telegram.org/bots#3-how-do-i-create-a-bot).
