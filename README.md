@@ -1,5 +1,5 @@
 # Github issues
-This project contains simple automation to fetch new Github issues based on user criteria and send it using a Telegram bot.
+This project contains simple automation to fetch new Github issues based on user criteria and send via Telegram.
 
 ## Getting started
 The code is divided into three files:
